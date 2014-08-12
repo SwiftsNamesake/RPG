@@ -34,7 +34,8 @@ class Entity:
 #def carrefour()
 def junction(*replies):
 	print('\n'.join('  [%d] %s' % (n, reply) for n, reply in enumerate(replies)))
-	return int(input())
+	choice = int(input())
+	return replies[choice].lstrip()
 
 
 def main():
@@ -44,9 +45,11 @@ def main():
 	ai.say('And where the hell do you think you\'re going?', 'sternly')
 	you.say('Uhm.. Excuse me?', 'flustered')
 	
-	junction('Heading for greener pastures, sir.',
-			 'None of your business!',
-			 'Wherever the road may take me. Who\'s asking?')
+	choice = junction('Heading for greener pastures, sir.',
+					  'None of your business!',
+					  'Wherever the road may take me. Who\'s asking?')
+
+	you.say(choice, 'neutral')
 
 if __name__ == '__main__':
 	main()
