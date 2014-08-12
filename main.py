@@ -6,11 +6,12 @@
 # August 11 2014
 
 # TODO | - Class for entities (colour, personality, etc.)
-#        -
+#        - Audio (?)
 
 # SPEC | - 
 #        -
 
+from random import randint
 
 class Entity:
 
@@ -19,23 +20,35 @@ class Entity:
 
     '''
 
+    # TODO: Remember encounters with and attitudes towards other Entities
+
     def __init__(self, name, colour, agreeability):
         self.name = name
         self.colour = colour
         self.agreeability = agreeability
 
+        self.relations = {}
+
 
     def say(self, message, tone):
         print('[%s] (%s) %s' % (self.name, tone, message))
 
-# Added a comment
+
+    def acquaint(self, entity, attitude):
+        # TODO: Add more dimensions and impressions (eg. trustworthy, past encounters)
+        self.relations[entity] = attitude
+
 
 # TODO: Use wintypes to highlight replies on hover (?)
 #def carrefour()
 def junction(*replies):
-    print('\n'.join('  [%d] %s' % (n, reply) for n, reply in enumerate(replies)))
-    choice = int(input())
+    print('\n'.join('  [%d] %s' % (n, reply) for n, reply in enumerate(replies))) # Print each possible reply on its own line, indented and numbered
+    choice = int(input()) # TODO: Validate choice
     return replies[choice].lstrip()
+
+
+def rollDice(number=1, sides=6):
+    return tuple(randint(1, sides) for n in range(number))
 
 
 def main():
