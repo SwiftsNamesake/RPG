@@ -28,14 +28,14 @@ class Entity:
 	def say(self, message, tone):
 		print('[%s] (%s) %s' % (self.name, tone, message))
 
-
+# Added a comment
 
 # TODO: Use wintypes to highlight replies on hover (?)
 #def carrefour()
 def junction(*replies):
 	print('\n'.join('  [%d] %s' % (n, reply) for n, reply in enumerate(replies)))
 	return int(input())
-	
+
 
 def main():
 	you = Entity('YOU', 'red', 0.4)
