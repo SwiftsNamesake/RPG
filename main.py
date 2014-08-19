@@ -13,7 +13,9 @@
 
 
 from random import randint
+from SwiftUtils import Console
 
+console = Console.Console()
 
 class Entity:
 
@@ -33,7 +35,7 @@ class Entity:
 
 
     def say(self, message, tone):
-        print('[%s] (%s) %s' % (self.name, tone, message))
+        console.printMarkup('[<fg=%s>%s</>] (%s) %s\n' % (self.colour.upper(), self.name, tone, message))
 
 
     def acquaint(self, entity, attitude):
@@ -44,7 +46,7 @@ class Entity:
 # TODO: Use wintypes to highlight replies on hover (?)
 #def carrefour()
 def junction(*replies):
-    print('\n'.join('  [%d] %s' % (n, reply) for n, reply in enumerate(replies))) # Print each possible reply on its own line, indented and numbered
+    console.printMarkup('\n'.join('  [%d] %s' % (n, reply) for n, reply in enumerate(replies)) + '\n') # Print each possible reply on its own line, indented and numbered
     choice = int(input()) # TODO: Validate choice
     return replies[choice].lstrip()
 
@@ -57,14 +59,17 @@ def main():
     you = Entity('YOU', 'red', 0.4)
     ai  = Entity('AI', 'green', 0.3)
 
-    ai.say('And where the hell do you think you\'re going?', 'sternly')
+    ai.say('And where the <bg=BLOOD>hell</> do you think you\'re going?', 'sternly')
     you.say('Uhm.. Excuse me?', 'flustered')
     
-    choice = junction('Heading for greener pastures, sir.',
+    choice = junction('Heading for <bg=GREEN>greener</> pastures, sir.',
                       'None of your business!',
-                      'Wherever the road may take me. Who\'s asking?')
+                      'Wherever the <bg=GREY>road</> may take me. Who\'s asking?')
 
+    console.updateBufferInfo()
+    console.moveCursor(0, -1) # TODO: Fix cursor update bug
     you.say(choice, 'neutral')
+
 
 if __name__ == '__main__':
     main()
